@@ -1,5 +1,3 @@
-import math
-
 # Get user number
 print("Gimme Number")
 # user_input = 300000
@@ -21,6 +19,7 @@ while len(sieve) > 0:
     for x in range(int(user_input)+1//new_prime):
         if new_prime*x in sieve:
             sieve.remove(new_prime*x)
+
 # print(highest_val, sieve, primes)
 print(primes)
 
