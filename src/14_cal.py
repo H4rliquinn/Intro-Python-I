@@ -22,3 +22,20 @@ and does the following:
 import sys
 import calendar
 from datetime import datetime
+
+
+def rules():
+    print('Enter a month to see that calendar\nEnter a month and year for years other than 2020\n')
+
+
+def show_calendar(args):
+    arglist = args.split()
+    cal = calendar.TextCalendar(firstweekday=0)
+    print(cal.formatmonth(int(arglist[1]), int(arglist[0]), w=0, l=0))
+
+
+rules()
+# uinput = input()
+uinput = '4 2014'
+show_calendar(uinput)
+# print(uinput)
