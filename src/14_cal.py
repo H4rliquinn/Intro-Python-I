@@ -59,24 +59,20 @@ def test_input(case):
 
 def test_month(month):
     if not month.isdigit() or type(int(month)) != int or int(month) > 12:
-        print("Month False")
         return False
-    print("Month True")
     return True
 
 
 def test_year(year):
     if not year.isdigit() or type(year) != int:
-        print("Year False")
         return False
-    print("Year True")
     return True
 
 
+# main program
 rules()
 uinput = input()
-success = test_input(uinput)
-if success:
+if test_input(uinput):
     show_calendar(uinput)
 else:
     rules()
