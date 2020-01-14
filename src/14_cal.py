@@ -2,7 +2,6 @@
 The Python standard library's 'calendar' module allows you to
 render a calendar to your terminal.
 https://docs.python.org/3.6/library/calendar.html
-
 Write a program that accepts user input of the form
   `14_cal.py month [year]`
 and does the following:
@@ -25,54 +24,43 @@ from datetime import datetime
 
 
 def rules():
-    print('Enter a month to see that calendar\nEnter a month and year for years other than 2020\n')
+    print('Include a month to see that calendar\nInclude a month and year for years other than 2020\n')
 
 
 def show_calendar(args):
-    arglist = args.split()
     now = datetime.now()
-    if len(args) > 1:
-        month = int(arglist[0])
-        year = int(arglist[1])
-    elif len(args) == 1:
-        month = int(arglist[0])
-        year = now.year
+    if len(args) > 2:
+        if test_month(args[1]) and test_year(args[2]):
+            month = int(args[1])
+            year = int(args[2])
+        else:
+            return False
+    elif len(args) == 2:
+        if test_month(args[1]):
+            month = int(args[1])
+            year = now.year
+        else:
+            return False
     else:
         month = now.month
         year = now.year
     cal = calendar.TextCalendar(firstweekday=0)
     print(cal.formatmonth(year, month, w=0, l=0))
-
-
-def test_input(case):
-    testing = case.split()
-    if len(testing) > 1:
-        if test_month(testing[0]) and test_year(testing[1]):
-            return True
-    elif len(testing) == 1:
-        if test_month(testing[0]):
-            return True
-    else:
-        return True
-    return False
+    return True
 
 
 def test_month(month):
-    if not month.isdigit() or type(int(month)) != int or int(month) > 12:
+    if not month.isdigit() or int(month) > 12:
         return False
     return True
 
 
 def test_year(year):
-    if not year.isdigit() or type(year) != int:
+    if not year.isdigit():
         return False
     return True
 
 
 # main program
-rules()
-uinput = input()
-if test_input(uinput):
-    show_calendar(uinput)
-else:
+if not show_calendar(sys.argv):
     rules()
