@@ -30,12 +30,53 @@ def rules():
 
 def show_calendar(args):
     arglist = args.split()
+    now = datetime.now()
+    if len(args) > 1:
+        month = int(arglist[0])
+        year = int(arglist[1])
+    elif len(args) == 1:
+        month = int(arglist[0])
+        year = now.year
+    else:
+        month = now.month
+        year = now.year
     cal = calendar.TextCalendar(firstweekday=0)
-    print(cal.formatmonth(int(arglist[1]), int(arglist[0]), w=0, l=0))
+    print(cal.formatmonth(year, month, w=0, l=0))
+
+
+def test_input(case):
+    testing = case.split()
+    if len(testing) > 1:
+        if test_month(testing[0]) and test_year(testing[1]):
+            return True
+    elif len(testing) == 1:
+        if test_month(testing[0]):
+            return True
+    else:
+        return True
+    return False
+
+
+def test_month(month):
+    if not month.isdigit() or type(int(month)) != int or int(month) > 12:
+        print("Month False")
+        return False
+    print("Month True")
+    return True
+
+
+def test_year(year):
+    if not year.isdigit() or type(year) != int:
+        print("Year False")
+        return False
+    print("Year True")
+    return True
 
 
 rules()
-# uinput = input()
-uinput = '4 2014'
-show_calendar(uinput)
-# print(uinput)
+uinput = input()
+success = test_input(uinput)
+if success:
+    show_calendar(uinput)
+else:
+    rules()
